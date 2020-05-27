@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Products Available</title>
+</head>
+<body>
+
+<table>
+    <thead>
+        <tr>
+            <th> Product </th>
+            <th> Quantity </th>
+            <th> Price</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${cart.empty}">
+            <td colspan="2"> No Items in the cart </td>
+        </tr>
+        <tr th:each="cart : ${cartlist}">
+            <td><span th:text="${cart.pname}"> Name </span></td>
+            <td><span th:text="${cart.qty}"> Quantity </span></td>
+            <td><span th:text="${cart.price}"> Price </span></td>
+        </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>
