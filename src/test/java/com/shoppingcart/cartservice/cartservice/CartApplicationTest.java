@@ -1,11 +1,8 @@
 package com.shoppingcart.cartservice.cartservice;
 
-import static org.hamcrest.CoreMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -17,12 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.shoppingcart.cartservice.model.AddToCart;
-import com.shoppingcart.cartservice.model.Product;
 import com.shoppingcart.cartservice.service.CartService;
 
 @SpringBootTest
@@ -39,7 +34,12 @@ public class CartApplicationTest {
 	@Test
 	public void getCartByUsershouldReturnCartDetails() throws Exception {
 		
-		  AddToCart cart = new AddToCart(1,1,500,1);
+		  AddToCart cart = new AddToCart();
+		  cart.setUid(1);
+		  cart.setPid(1);
+		  cart.setQty(1);
+		  cart.setPrice(500);
+		  
 		  List<AddToCart> listCart = new ArrayList<AddToCart>();
 		  listCart.add(cart);
 		  
@@ -73,7 +73,11 @@ public class CartApplicationTest {
 	@Test
 	public void addToCartshouldReturnCartDetails() throws Exception {
 		
-		  AddToCart cart = new AddToCart(1,1,500,1);
+		  AddToCart cart = new AddToCart();
+		  cart.setUid(1);
+		  cart.setPid(1);
+		  cart.setQty(1);
+		  cart.setPrice(500);
 		  List<AddToCart> listCart = new ArrayList<AddToCart>();
 		  listCart.add(cart);
 		  

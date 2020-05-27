@@ -15,7 +15,7 @@ public class ProductDataService {
 	
 	@HystrixCommand(fallbackMethod = "getFallbackProductData")
 	public Product getProduct(int pid) {
-		Product pr = restTemplate.getForObject("http://localhost:9090/getProductbyPid/"+pid, Product.class);
+		Product pr = restTemplate.getForObject("http://product-microservice/getProductbyPid/"+pid, Product.class);
 		return pr;
 	}
 	

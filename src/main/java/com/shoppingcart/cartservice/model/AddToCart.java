@@ -11,17 +11,6 @@ import javax.persistence.Table;
 @Table(name = "addtocart")
 public class AddToCart {
 	
-	public AddToCart(int uid, int pid, int price, int qty) {
-		super();
-		this.uid = uid;
-		this.pid = pid;
-		this.price = price;
-		this.qty = qty;
-	}
-	
-	public AddToCart() {
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)
