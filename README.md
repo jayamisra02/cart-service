@@ -8,3 +8,6 @@ Handles following REST based requests:
 4) get Cart information for User- /getCartByUserId {"user_id"}
 5) Checkout order for User- /checkoutOrder {"user_id","payment_type","delivery_address","total_price"}
 6) Fetch Order history- /getOrderByUserId {"user_id"}
+
+
+Database used- H2
