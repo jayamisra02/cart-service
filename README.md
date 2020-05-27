@@ -1,6 +1,6 @@
 # cart-service
 
-handles following REST based requests:
+Handles following REST based requests:
 
 1) Add product to cart
 2) Remove product from Cart
