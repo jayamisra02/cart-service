@@ -56,8 +56,8 @@ public class OrderController {
 				for (AddToCart cart : cartItems) {
 
 					// To check if the product is available in the inventory
-					Product product = productDataService.getProduct(cart.getPid());
-					productList = productList + "|" + product.getPname() + "-" + cart.getQty();
+					//Product product = productDataService.getProduct(cart.getPid());
+					productList = productList + "|" + cart.getPid() + "-" + cart.getQty();
 
 					/*
 					 * if (product.getQuantity() > 0 && product.getQuantity() > cart.getQty()) {
