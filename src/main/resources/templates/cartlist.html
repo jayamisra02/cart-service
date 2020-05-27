@@ -15,13 +15,13 @@
         </tr>
     </thead>
     <tbody>
-    <tr th:if="${cart.empty}">
+    <tr th:if="${carts.empty}">
             <td colspan="2"> No Items in the cart </td>
         </tr>
-        <tr th:each="cart : ${cartlist}">
-            <td><span th:text="${cart.pname}"> Name </span></td>
-            <td><span th:text="${cart.qty}"> Quantity </span></td>
-            <td><span th:text="${cart.price}"> Price </span></td>
+        <tr th:each="c : ${carts}">
+            <td><span th:text="${c.pid}"> Pid	 </span></td>
+            <td><span th:text="${c.qty}"> Quantity </span></td>
+            <td><span th:text="${c.price}"> Price </span></td>
         </tr>
     </tbody>
 </table>

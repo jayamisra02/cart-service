@@ -114,8 +114,9 @@ public class CartController {
 	
 	@GetMapping("/getCartByUserInfor/{uid}")
 	public ModelAndView getCartByUserInfor(@PathVariable("uid") int uid) {
+		List<AddToCart> carts = cartService.getCartByUser(uid);
 		ModelAndView mav = new ModelAndView("cartlist");
-		mav.addObject("cart", cartService.getCartByUser(uid));
+		mav.addObject("carts", carts);
 		return mav;
 
 	}

@@ -16,10 +16,10 @@ public class Order {
 	@Column(name = "id", unique = true, nullable = false)
 	private int id;
 	
-	@Column(name = "uid", nullable = false)
+	@Column(name = "user_id", nullable = false)
 	private int uid;
 	
-	@Column(name = "oid")
+	@Column(name = "order_id")
 	private int oid;
 	
 	@Column(name = "order_date")
@@ -36,13 +36,13 @@ public class Order {
 	 * @Column(name = "qty") private int qty;
 	 */
 	
-	@Column(name = "price")
+	@Column(name = "total_price")
 	private int price;
 	
 	@Column(name = "payment_type")
 	private String payment_type;
 	
-	@Column(name = "del_add")
+	@Column(name = "delivery_add")
 	private String del_add;
 
 	public int getId() {

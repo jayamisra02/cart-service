@@ -38,7 +38,7 @@ public class OrderController {
 		try {
 			String keys[] = { "uid", "total_price", "payment_type", "del_add" };
 			ShoppingConfig.validationWithHashMap(keys, checkOutRequest);
-			
+
 			int uid = Integer.parseInt(checkOutRequest.get("uid"));
 
 			int total_amt = Integer.parseInt(checkOutRequest.get("total_price"));
@@ -46,24 +46,25 @@ public class OrderController {
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 			Date date = new Date();
 			String order_date = formatter.format(date);
-			
-			//Validate if total price in the request is same as sum total of product's price in the cart
+
+			// Validate if total price in the request is same as sum total of product's
+			// price in the cart
 			if (cartService.checkTotalAmountForCart(total_amt, uid)) {
-				//Fetches Users cart information
+				// Fetches Users cart information
 				List<AddToCart> cartItems = cartService.getCartByUser(uid);
 				List<Order> tmp = new ArrayList<Order>();
 				String productList = "";
 				for (AddToCart cart : cartItems) {
 
 					// To check if the product is available in the inventory
-					//Product product = productDataService.getProduct(cart.getPid());
-					productList = productList + "|" + cart.getPid() + "-" + cart.getQty();
+					Product product = productDataService.getProduct(cart.getPid());
+					//productList = productList + "|" + product.getPname() + "-" + cart.getQty();
 
-					/*
-					 * if (product.getQuantity() > 0 && product.getQuantity() > cart.getQty()) {
-					 * productList = productList + "|" + product.getPname() + "-" + cart.getQty() +
-					 * ""; } else { total_amt = total_amt - (cart.getPrice() * cart.getQty()); }
-					 */
+					if (product != null && product.getQuantity() > 0 && product.getQuantity() > cart.getQty()) {
+						productList = productList + "|" + product.getPname() + "-" + cart.getQty() + "";
+					} else {
+						total_amt = total_amt - (cart.getPrice() * cart.getQty());
+					}
 
 				}
 				int oid = this.getOrderId();
@@ -78,7 +79,7 @@ public class OrderController {
 				tmp.add(order);
 
 				cartService.saveOrder(tmp);
-				return ResponseEntity.ok(cartItems);
+				return ResponseEntity.ok(order);
 			} else {
 				throw new Exception("Total Amount Mismatch");
 			}
