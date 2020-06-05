@@ -17,7 +17,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.shoppingcart.cartservice.model.AddToCart;
+import com.shoppingcart.cartservice.model.CartItem;
 import com.shoppingcart.cartservice.service.CartService;
 
 @SpringBootTest
@@ -34,13 +34,13 @@ public class CartApplicationTest {
 	@Test
 	public void getCartByUsershouldReturnCartDetails() throws Exception {
 		
-		  AddToCart cart = new AddToCart();
+		  CartItem cart = new CartItem();
 		  cart.setUid(1);
 		  cart.setPid(1);
 		  cart.setQty(1);
 		  cart.setPrice(500);
 		  
-		  List<AddToCart> listCart = new ArrayList<AddToCart>();
+		  List<CartItem> listCart = new ArrayList<CartItem>();
 		  listCart.add(cart);
 		  
 		  //Setup mock
@@ -73,12 +73,12 @@ public class CartApplicationTest {
 	@Test
 	public void addToCartshouldReturnCartDetails() throws Exception {
 		
-		  AddToCart cart = new AddToCart();
+		  CartItem cart = new CartItem();
 		  cart.setUid(1);
 		  cart.setPid(1);
 		  cart.setQty(1);
 		  cart.setPrice(500);
-		  List<AddToCart> listCart = new ArrayList<AddToCart>();
+		  List<CartItem> listCart = new ArrayList<CartItem>();
 		  listCart.add(cart);
 		  
 		  //Setup mock

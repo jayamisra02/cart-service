@@ -9,19 +9,19 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shoppingcart.cartservice.config.ShoppingConfig;
-import com.shoppingcart.cartservice.model.AddToCart;
+import com.shoppingcart.cartservice.model.CartItem;
 import com.shoppingcart.cartservice.model.Order;
 import com.shoppingcart.cartservice.model.Product;
 import com.shoppingcart.cartservice.service.CartService;
 import com.shoppingcart.cartservice.service.ProductDataService;
 
 @RestController
-@RequestMapping("/order")
 public class OrderController {
 
 	@Autowired
@@ -32,7 +32,7 @@ public class OrderController {
 
 	// To checkout the cart and place the order
 	// Params to be passed- User id, Total Price, Payment Type, Delivery Address
-	@RequestMapping("/checkoutOrder")
+	@PostMapping("/order")
 	public ResponseEntity<?> checkoutOrder(@RequestBody HashMap<String, String> checkOutRequest) {
 
 		try {
@@ -51,10 +51,10 @@ public class OrderController {
 			// price in the cart
 			if (cartService.checkTotalAmountForCart(total_amt, uid)) {
 				// Fetches Users cart information
-				List<AddToCart> cartItems = cartService.getCartByUser(uid);
+				List<CartItem> cartItems = cartService.getCartByUser(uid);
 				List<Order> tmp = new ArrayList<Order>();
 				String productList = "";
-				for (AddToCart cart : cartItems) {
+				for (CartItem cart : cartItems) {
 
 					// To check if the product is available in the inventory
 					Product product = productDataService.getProduct(cart.getPid());
@@ -97,7 +97,7 @@ public class OrderController {
 	}
 
 	// To fetch Order history of the User
-	@RequestMapping("/getOrderByUserId")
+	@GetMapping("/order")
 	public ResponseEntity<?> getOrderByUser(@RequestBody HashMap<String, String> getOrderRequest) {
 
 		try {

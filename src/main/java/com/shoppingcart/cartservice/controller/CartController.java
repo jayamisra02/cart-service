@@ -5,19 +5,18 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.shoppingcart.cartservice.config.ShoppingConfig;
-import com.shoppingcart.cartservice.model.AddToCart;
+import com.shoppingcart.cartservice.model.CartItem;
 import com.shoppingcart.cartservice.service.CartService;
 
 @RestController
-@RequestMapping("/addtocart")
 public class CartController {
 
 	@Autowired
@@ -25,7 +24,7 @@ public class CartController {
 
 	//The user should be able to go back to view the list of products in the cart
 	//Params to be passes-User Id
-	@RequestMapping("/getCartByUserId")
+	@GetMapping("/shopping-cart")
 	public ResponseEntity<?> getCartByUser(@RequestBody HashMap<String, String> getCartRequest) {
 
 		try {
@@ -34,7 +33,7 @@ public class CartController {
 			ShoppingConfig.validationWithHashMap(keys, getCartRequest);
 			int uid = Integer.parseInt(getCartRequest.get("uid"));
 
-			List<AddToCart> cart = cartService.getCartByUser(uid);
+			List<CartItem> cart = cartService.getCartByUser(uid);
 			return ResponseEntity.ok(cart);
 
 		} catch (Exception e) {
@@ -45,7 +44,7 @@ public class CartController {
 
 	//The user should be able to add product to their cart
 	//Params to be passed- User id, Product id, Quantity, Price
-	@RequestMapping("/addProduct")
+	@PostMapping("/shopping-cart/product")
 	public ResponseEntity<?> addProduct(@RequestBody HashMap<String, String> addCartRequest) {
 
 		try {
@@ -56,7 +55,7 @@ public class CartController {
 			int uid = Integer.parseInt(addCartRequest.get("uid"));
 			int qty = Integer.parseInt(addCartRequest.get("qty"));
 			int price = Integer.parseInt(addCartRequest.get("price"));
-			List<AddToCart> cart = cartService.addToCart(uid, pid, qty, price);
+			List<CartItem> cart = cartService.addToCart(uid, pid, qty, price);
 			return ResponseEntity.ok(cart);
 
 		} catch (Exception e) {
@@ -68,7 +67,7 @@ public class CartController {
 
 	//The user should be able to review their shopping cart to remove the product
 	//Params to be passed: User Id, Product id
-	@RequestMapping("/removeProduct")
+	@DeleteMapping("/shopping-cart/product")
 	public ResponseEntity<?> removeProductfromCart(@RequestBody HashMap<String, String> removeCartRequest) {
 
 		try {
@@ -78,7 +77,7 @@ public class CartController {
 			// int cid = Integer.parseInt(removeCartRequest.get("cid"));
 			int uid = Integer.parseInt(removeCartRequest.get("uid"));
 			cartService.RemoveFromCart(uid, pid);
-			List<AddToCart> cart = cartService.getCartByUser(uid);
+			List<CartItem> cart = cartService.getCartByUser(uid);
 			return ResponseEntity.ok(cart);
 
 		} catch (Exception e) {
@@ -90,7 +89,7 @@ public class CartController {
 
 	//The user should be able to review their shopping cart to update the quantity
 	//Params to be passed- Product id, User Id, Quantity, Price
-	@RequestMapping("/updateProduct")
+	@PutMapping("/shopping-cart/product")
 	public ResponseEntity<?> updateProductfromCart(@RequestBody HashMap<String, String> removeCartRequest) {
 
 		try {
@@ -102,7 +101,7 @@ public class CartController {
 			int price = Integer.parseInt(removeCartRequest.get("price"));
 			int uid = Integer.parseInt(removeCartRequest.get("uid"));
 			cartService.updateCart(uid, pid, qty, price);
-			List<AddToCart> cart = cartService.getCartByUser(uid);
+			List<CartItem> cart = cartService.getCartByUser(uid);
 			return ResponseEntity.ok(cart);
 
 		} catch (Exception e) {
@@ -111,15 +110,5 @@ public class CartController {
 		}
 
 	}
-	
-	@GetMapping("/getCartByUserInfor/{uid}")
-	public ModelAndView getCartByUserInfor(@PathVariable("uid") int uid) {
-		List<AddToCart> carts = cartService.getCartByUser(uid);
-		ModelAndView mav = new ModelAndView("cartlist");
-		mav.addObject("carts", carts);
-		return mav;
-
-	}
-	
 
 }

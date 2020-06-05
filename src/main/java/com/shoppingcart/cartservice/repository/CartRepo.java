@@ -9,20 +9,20 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.shoppingcart.cartservice.model.AddToCart;
+import com.shoppingcart.cartservice.model.CartItem;
 
 @Repository
-public interface CartRepo extends JpaRepository<AddToCart, Long> {
+public interface CartRepo extends JpaRepository<CartItem, Long> {
 
 	 @Query("Select c from AddToCart c where c.uid =:uid")
-	  List<AddToCart> getCartByUser(@Param("uid") int uid);
+	  List<CartItem> getCartByUser(@Param("uid") int uid);
 	 
 	 @Query("Select sum(c.price) from AddToCart c where c.uid =:uid")
 	  int getTotalAmountByUserId(@Param("uid") int uid);
 	 
 	 
 	 @Query("Select c from AddToCart c where c.uid =:uid and c.pid =:pid")
-	 List<AddToCart> getCartByUserandProductId(@Param("uid") int uid, @Param("pid") int pid);
+	 List<CartItem> getCartByUserandProductId(@Param("uid") int uid, @Param("pid") int pid);
 	 
 	 @Modifying
 	 @Transactional

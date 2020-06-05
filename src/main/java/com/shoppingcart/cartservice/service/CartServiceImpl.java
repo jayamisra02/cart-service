@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.shoppingcart.cartservice.model.AddToCart;
+import com.shoppingcart.cartservice.model.CartItem;
 import com.shoppingcart.cartservice.model.Order;
 import com.shoppingcart.cartservice.repository.CartRepo;
 import com.shoppingcart.cartservice.repository.OrderRepo;
@@ -20,7 +20,7 @@ public class CartServiceImpl implements CartService {
 	OrderRepo orderRepo;
 
 	@Override
-	public List<AddToCart> addToCart(int uid, int pid, int qty,int price) throws Exception{
+	public List<CartItem> addToCart(int uid, int pid, int qty,int price) throws Exception{
 		
 		try {
 			if(!cartRepo.getCartByUserandProductId(uid, pid).isEmpty()) {
@@ -29,7 +29,7 @@ public class CartServiceImpl implements CartService {
 		}catch(Exception e) {
 			throw new Exception(e.getMessage());
 		}
-		AddToCart cart = new AddToCart();
+		CartItem cart = new CartItem();
 		cart.setUid(uid);
 		cart.setQty(qty);
 		cart.setPid(pid);
@@ -40,7 +40,7 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public List<AddToCart> getCartByUser(int uid) {
+	public List<CartItem> getCartByUser(int uid) {
 		return  cartRepo.getCartByUser(uid);
 	}
 
@@ -50,7 +50,7 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public List<AddToCart> getAllCart() {
+	public List<CartItem> getAllCart() {
 		return cartRepo.findAll();
 	}
 
