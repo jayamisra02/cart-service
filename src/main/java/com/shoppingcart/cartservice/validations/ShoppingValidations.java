@@ -1,8 +1,8 @@
-package com.shoppingcart.cartservice.config;
+package com.shoppingcart.cartservice.validations;
 
 import java.util.HashMap;
 
-public class ShoppingConfig {
+public class ShoppingValidations {
 	
 public static Boolean validationWithHashMap(String keys[], HashMap<String,String> request) throws Exception{
 	Boolean status = false;

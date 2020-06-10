@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shoppingcart.cartservice.config.ShoppingConfig;
 import com.shoppingcart.cartservice.model.CartItem;
 import com.shoppingcart.cartservice.model.Order;
 import com.shoppingcart.cartservice.model.Product;
 import com.shoppingcart.cartservice.service.CartService;
 import com.shoppingcart.cartservice.service.ProductDataService;
+import com.shoppingcart.cartservice.validations.ShoppingValidations;
 
 @RestController
 public class OrderController {
@@ -37,7 +37,7 @@ public class OrderController {
 
 		try {
 			String keys[] = { "uid", "total_price", "payment_type", "del_add" };
-			ShoppingConfig.validationWithHashMap(keys, checkOutRequest);
+			ShoppingValidations.validationWithHashMap(keys, checkOutRequest);
 
 			int uid = Integer.parseInt(checkOutRequest.get("uid"));
 
@@ -102,7 +102,7 @@ public class OrderController {
 
 		try {
 			String keys[] = { "uid" };
-			ShoppingConfig.validationWithHashMap(keys, getOrderRequest);
+			ShoppingValidations.validationWithHashMap(keys, getOrderRequest);
 			int uid = Integer.parseInt(getOrderRequest.get("uid"));
 
 			List<Order> order = cartService.getOrderByUserId(uid);

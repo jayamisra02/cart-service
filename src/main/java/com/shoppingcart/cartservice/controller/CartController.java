@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,9 +13,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shoppingcart.cartservice.config.ShoppingConfig;
 import com.shoppingcart.cartservice.model.CartItem;
 import com.shoppingcart.cartservice.service.CartService;
+import com.shoppingcart.cartservice.validations.ShoppingValidations;
 
 @RestController
 public class CartController {
@@ -30,7 +31,7 @@ public class CartController {
 		try {
 			String keys[] = { "uid" };
 			//Validates if the request has required fields
-			ShoppingConfig.validationWithHashMap(keys, getCartRequest);
+			ShoppingValidations.validationWithHashMap(keys, getCartRequest);
 			int uid = Integer.parseInt(getCartRequest.get("uid"));
 
 			List<CartItem> cart = cartService.getCartByUser(uid);
@@ -49,7 +50,7 @@ public class CartController {
 
 		try {
 			String keys[] = { "uid", "pid", "qty", "price" };
-			ShoppingConfig.validationWithHashMap(keys, addCartRequest);
+			ShoppingValidations.validationWithHashMap(keys, addCartRequest);
 
 			int pid = Integer.parseInt(addCartRequest.get("pid"));
 			int uid = Integer.parseInt(addCartRequest.get("uid"));
@@ -72,7 +73,7 @@ public class CartController {
 
 		try {
 			String keys[] = { "pid", "uid" };
-			ShoppingConfig.validationWithHashMap(keys, removeCartRequest);
+			ShoppingValidations.validationWithHashMap(keys, removeCartRequest);
 			int pid = Integer.parseInt(removeCartRequest.get("pid"));
 			// int cid = Integer.parseInt(removeCartRequest.get("cid"));
 			int uid = Integer.parseInt(removeCartRequest.get("uid"));
@@ -94,7 +95,7 @@ public class CartController {
 
 		try {
 			String keys[] = { "pid", "qty", "uid", "price" };
-			ShoppingConfig.validationWithHashMap(keys, removeCartRequest);
+			ShoppingValidations.validationWithHashMap(keys, removeCartRequest);
 			int pid = Integer.parseInt(removeCartRequest.get("pid"));
 			// int cid = Integer.parseInt(removeCartRequest.get("cid"));
 			int qty = Integer.parseInt(removeCartRequest.get("qty"));
